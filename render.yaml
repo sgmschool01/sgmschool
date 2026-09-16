@@ -1,0 +1,37 @@
+services:
+  # 1. Backend Server
+  - type: web
+    name: smart-school-backend
+    env: node
+    rootDir: server
+    buildCommand: npm install
+    startCommand: node index.js
+    envVars:
+      - key: PORT
+        value: 5000
+      - key: DB_HOST
+        value: aws-0-ap-south-1.pooler.supabase.com
+      - key: DB_PORT
+        value: "5432"
+      - key: DB_NAME
+        value: postgres
+      - key: DB_USER
+        value: postgres.nvddzpmdlssbhtzwawrn
+      - key: DB_PASSWORD
+        value: sgmschool@123@
+      - key: DATABASE_URL
+        value: postgresql://postgres.nvddzpmdlssbhtzwawrn:sgmschool%40123%40@aws-0-ap-south-1.pooler.supabase.com:5432/postgres
+
+  # 2. Frontend Client
+  - type: web
+    name: smart-school-frontend
+    env: node
+    rootDir: client
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NEXT_PUBLIC_API_URL
+        fromService:
+          type: web
+          name: smart-school-backend
+          property: url
