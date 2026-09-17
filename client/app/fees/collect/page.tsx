@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { notify } from '@/app/utils/notify';
 
-const API = process.env.NEXT_PUBLIC_API_URL || "https://demo-school-soxa.onrender.com";
+const API = process.env.NEXT_PUBLIC_API_URL || "https://sgmschool.onrender.com";
 
 
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -95,7 +95,7 @@ function normalizeSlips(rawSlips: any[], trustedIds?: Set<number>): SlipRow[] {
         // For family slips, if the current lead student is trusted but active non-trusted siblings exist,
         // repoint the slip's primary student to the senior active non-trusted sibling
         if (s.is_family_slip && s.family_members && s.family_members.length > 0 && !isFamilyAllTrusted) {
-            const activePaying = s.family_members.filter((m: any) => 
+            const activePaying = s.family_members.filter((m: any) =>
                 (m.status || 'Active').toLowerCase() === 'active' && !isMemberTrusted(m)
             );
             if (activePaying.length > 0 && isMemberTrusted(s)) {
@@ -118,10 +118,10 @@ function normalizeSlips(rawSlips: any[], trustedIds?: Set<number>): SlipRow[] {
             if (s.line_items && s.line_items.length > 0) {
                 const extraItems = s.line_items.filter((li: any) => {
                     const hn = (li.head_name || '').toLowerCase();
-                    return !hn.includes('tuition') && 
-                           !hn.includes('family monthly fee') && 
-                           !hn.includes('monthly fee') && 
-                           !hn.includes('previous balance');
+                    return !hn.includes('tuition') &&
+                        !hn.includes('family monthly fee') &&
+                        !hn.includes('monthly fee') &&
+                        !hn.includes('previous balance');
                 });
                 nonTuitionTotal = extraItems.reduce((sum: number, li: any) => sum + parseFloat(li.amount as any || 0), 0);
             } else {
@@ -129,9 +129,9 @@ function normalizeSlips(rawSlips: any[], trustedIds?: Set<number>): SlipRow[] {
             }
 
             const paid = parseFloat(s.paid_amount as any || 0);
-            const status: 'paid' | 'partial' | 'unpaid' | 'satteled' = 
-                nonTuitionTotal <= 0 
-                    ? 'satteled' 
+            const status: 'paid' | 'partial' | 'unpaid' | 'satteled' =
+                nonTuitionTotal <= 0
+                    ? 'satteled'
                     : (paid >= nonTuitionTotal ? 'paid' : (paid > 0 ? 'partial' : 'unpaid'));
 
             return {
@@ -198,7 +198,7 @@ export default function CollectFeePage() {
                     setSelectedAcademicYear(active.id.toString());
                 }
             }
-        }).catch(() => {});
+        }).catch(() => { });
         fetch(`${API}/academic/active-year`).then(r => r.json()).then(data => {
             if (data && data.id) {
                 setActiveYear(data);
@@ -208,12 +208,12 @@ export default function CollectFeePage() {
                     setYear(startY);
                 }
             }
-        }).catch(() => {});
+        }).catch(() => { });
         // School info lives in school_settings table (via /settings), NOT system_settings
         fetch(`${API}/settings`).then(r => r.json()).then((data: any) => {
             if (data && typeof data === 'object' && !Array.isArray(data)) {
                 const getLogo = (raw?: string) => {
-                    const API_URL = (process.env.NEXT_PUBLIC_API_URL || "https://demo-school-soxa.onrender.com").replace(/\/+$/, '');
+                    const API_URL = (process.env.NEXT_PUBLIC_API_URL || "https://sgmschool.onrender.com").replace(/\/+$/, '');
                     if (!raw || !raw.trim()) return `${API_URL}/icon.png`;
                     const s = raw.trim();
                     if (s.startsWith('data:') || s.startsWith('http://') || s.startsWith('https://')) return s;
@@ -296,7 +296,7 @@ export default function CollectFeePage() {
                     });
                     currentTIds = newSet;
                     setTrustedStudentIds(newSet);
-                } catch {}
+                } catch { }
             }
             const data = await r.json();
             if (!r.ok) throw new Error(data.error);
@@ -335,7 +335,7 @@ export default function CollectFeePage() {
                     });
                     currentTIds = newSet;
                     setTrustedStudentIds(newSet);
-                } catch {}
+                } catch { }
             }
             const data = await r.json();
             if (r.ok) {
@@ -360,9 +360,9 @@ export default function CollectFeePage() {
             );
             const isTargetFamilyAllTrusted = Boolean(
                 targetSlip.is_family_slip && targetSlip.family_members && targetSlip.family_members.length > 0 &&
-                targetSlip.family_members.every((m: any) => 
-                    (m.category || '').toLowerCase() === 'trusted' || 
-                    m.is_trusted || 
+                targetSlip.family_members.every((m: any) =>
+                    (m.category || '').toLowerCase() === 'trusted' ||
+                    m.is_trusted ||
                     (m.student_id && trustedStudentIds.has(Number(m.student_id)))
                 )
             );
@@ -371,9 +371,9 @@ export default function CollectFeePage() {
             if (targetSlip.line_items && targetSlip.line_items.length > 0) {
                 targetSlip.line_items.forEach((item: any) => {
                     const headId = item.item_id ? item.item_id.toString() : item.head_name;
-                    const isTuitionOrPb = (item.head_name || '').toLowerCase().includes('tuition') || 
-                        (item.head_name || '').toLowerCase().includes('family monthly fee') || 
-                        (item.head_name || '').toLowerCase().includes('monthly fee') || 
+                    const isTuitionOrPb = (item.head_name || '').toLowerCase().includes('tuition') ||
+                        (item.head_name || '').toLowerCase().includes('family monthly fee') ||
+                        (item.head_name || '').toLowerCase().includes('monthly fee') ||
                         (item.head_name || '').toLowerCase().includes('previous balance');
 
                     if (isTrusted && isTuitionOrPb) {
@@ -383,7 +383,7 @@ export default function CollectFeePage() {
 
                     const rem = Math.max(0, parseFloat(item.amount as any || 0) - parseFloat(item.paid_amount as any || 0));
                     const isLateFine = (item.head_name || '').toLowerCase().includes('late') || (item.head_name || '').toLowerCase().includes('fine');
-                    
+
                     if (isLateFine && targetSlip.due_date) {
                         let cutoff = new Date(targetSlip.due_date);
                         if (item.fine_after_day && parseInt(item.fine_after_day) > 0) {
@@ -644,7 +644,7 @@ export default function CollectFeePage() {
             </tr>`;
 
         const phones = [school.phone_number, school.school_phone2, school.school_phone3].filter(Boolean).join(' ; ') || '0300-7730141 ; 0308-7696430 ; 067-3366383';
-        const API_URL = (process.env.NEXT_PUBLIC_API_URL || "https://demo-school-soxa.onrender.com").replace(/\/+$/, '');
+        const API_URL = (process.env.NEXT_PUBLIC_API_URL || "https://sgmschool.onrender.com").replace(/\/+$/, '');
         const logoUrl = school.school_logo_url || `${API_URL}/icon.png`;
         const schoolNameFormatted = (school.school_name || 'Shaheen Model High School').split('\n').map(escStr).join('<br>');
         const schoolAddress = escStr(school.school_address || '83/M Madina Colony Vehari');
@@ -971,7 +971,7 @@ export default function CollectFeePage() {
 
         const receivingSnap = Object.values(activeVals).reduce((sum, v) => sum + (parseFloat(v as string) || 0), 0);
         if (receivingSnap <= 0 && waivedItemIds.length === 0) { notify.error('Enter a valid amount or waive fine.'); return; }
-        
+
         // Snapshot before state changes (needed for receipt after async updates)
         const prevPaidSnap = parseFloat(activeSlip!.paid_amount as any);
         const slipSnap = { ...activeSlip! };
@@ -1095,8 +1095,8 @@ export default function CollectFeePage() {
             // For family groups, ensure primary student info reflects the ACTIVE family lead (preferring paying students)
             if (g.is_family_slip && g.family_members && g.family_members.length > 0) {
                 const activeMembers = g.family_members.filter((m: any) => (m.status || 'Active').toLowerCase() === 'active');
-                const isTrust = (m: any) => ((m && m.category) || '').trim().toLowerCase() === 'trusted' 
-                    || m.is_trusted 
+                const isTrust = (m: any) => ((m && m.category) || '').trim().toLowerCase() === 'trusted'
+                    || m.is_trusted
                     || (m.student_id && trustedStudentIds.has(Number(m.student_id)));
                 const activePaying = activeMembers.filter((m: any) => !isTrust(m));
                 const activeLead = activePaying.length > 0 ? activePaying[0] : (activeMembers.length > 0 ? activeMembers[0] : null);
@@ -1112,7 +1112,7 @@ export default function CollectFeePage() {
             }
 
             const allMembersTrusted = Boolean(
-                g.family_members && g.family_members.length > 0 && g.family_members.every((m: any) => 
+                g.family_members && g.family_members.length > 0 && g.family_members.every((m: any) =>
                     (m.category || '').toLowerCase() === 'trusted' || m.is_trusted || (m.student_id && trustedStudentIds.has(Number(m.student_id)))
                 )
             );
@@ -1132,7 +1132,7 @@ export default function CollectFeePage() {
                     return (tot - paid) > 0;
                 })
                 .sort((a, b) => (b.year - a.year) || (b.month - a.month));
-            
+
             if (unpaid.length > 0) {
                 g.latest_unpaid = unpaid[0];
                 const tot = parseFloat(g.latest_unpaid.total_amount as any || 0);
@@ -1786,8 +1786,8 @@ export default function CollectFeePage() {
                                             </div>
                                             <div className="d-flex flex-wrap gap-1">
                                                 {activeSlip.family_members!.map((m, i) => {
-                                                    const isTrust = ((m as any).category || '').trim().toLowerCase() === 'trusted' 
-                                                        || (m as any).is_trusted 
+                                                    const isTrust = ((m as any).category || '').trim().toLowerCase() === 'trusted'
+                                                        || (m as any).is_trusted
                                                         || (m.student_id && trustedStudentIds.has(Number(m.student_id)));
                                                     return (
                                                         <span key={i} style={{

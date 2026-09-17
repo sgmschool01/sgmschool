@@ -7,7 +7,7 @@ export default function AttendanceSettingsHubPage() {
     const [activeYear, setActiveYear] = useState<{ id: number; year_name: string; is_active: boolean; status?: string } | null>(null);
 
     useEffect(() => {
-        const API = (process.env.NEXT_PUBLIC_API_URL || "https://demo-school-soxa.onrender.com").replace(/\/+$/, '');
+        const API = (process.env.NEXT_PUBLIC_API_URL || "https://sgmschool.onrender.com").replace(/\/+$/, '');
         fetch(`${API}/attendance/academic-years`)
             .then(r => r.json())
             .then(d => {

@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { notify } from '@/app/utils/notify';
 
-const API = process.env.NEXT_PUBLIC_API_URL || "https://demo-school-soxa.onrender.com";
+const API = process.env.NEXT_PUBLIC_API_URL || "https://sgmschool.onrender.com";
 
 type Term = { id: number; term_name: string };
 type ClassItem = { class_id: number; class_name: string };
@@ -92,7 +92,7 @@ function getLogoUrl(rawLogo?: string): string {
     if (logoStr.startsWith('http://') || logoStr.startsWith('https://') || logoStr.startsWith('data:')) {
         return logoStr;
     }
-    const baseUrl = (process.env.NEXT_PUBLIC_API_URL || "https://demo-school-soxa.onrender.com").replace(/\/+$/, '');
+    const baseUrl = (process.env.NEXT_PUBLIC_API_URL || "https://sgmschool.onrender.com").replace(/\/+$/, '');
     const cleanPath = logoStr.replace(/^\/+/, '');
     return `${baseUrl}/${cleanPath}`;
 }
@@ -102,7 +102,7 @@ const GRADE_SCALE = [
     { min: 80, grade: 'A' },
     { min: 70, grade: 'B' },
     { min: 60, grade: 'C' },
-    { min: 0,  grade: 'D' }
+    { min: 0, grade: 'D' }
 ];
 
 function gradeFromPercentage(pct: number | null | undefined): string {
@@ -765,7 +765,7 @@ export default function ResultCardPage() {
 
     return (
         <div className="page-wrap" style={{ backgroundColor: 'var(--bg-main)', minHeight: '100vh', paddingBottom: '3rem' }}>
-            
+
             {/* Header Bar */}
             <div className="d-flex flex-wrap align-items-center justify-content-between mb-4">
                 <div>

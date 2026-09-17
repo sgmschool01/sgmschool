@@ -46,7 +46,7 @@ type StudentDetailRow = {
     status?: string;
 };
 
-const API = process.env.NEXT_PUBLIC_API_URL || "https://demo-school-soxa.onrender.com";
+const API = process.env.NEXT_PUBLIC_API_URL || "https://sgmschool.onrender.com";
 
 export default function MarksApprovalPage() {
     const { user } = useAuth();

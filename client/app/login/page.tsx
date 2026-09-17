@@ -43,7 +43,7 @@ export default function LoginPage() {
         tagline: 'Management Portal'
     });
 
-    const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://demo-school-soxa.onrender.com";
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://sgmschool.onrender.com";
 
     // Fetch School Settings for Login Branding
     useEffect(() => {
@@ -66,7 +66,7 @@ export default function LoginPage() {
                     });
                 }
             })
-            .catch(() => {});
+            .catch(() => { });
     }, []);
 
     // Fetch dynamic GitHub data for Umar

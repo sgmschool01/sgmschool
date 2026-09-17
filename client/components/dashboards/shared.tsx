@@ -302,7 +302,7 @@ export function DashShell({
 }
 
 // Constants
-export const API = process.env.NEXT_PUBLIC_API_URL || "https://demo-school-soxa.onrender.com";
+export const API = process.env.NEXT_PUBLIC_API_URL || "https://sgmschool.onrender.com";
 export const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 export function fmt(n: number) {
@@ -890,14 +890,14 @@ function printDailyReceiptWindow(
   const rawMembers: any[] = (slip.family_members && slip.family_members.length > 0)
     ? slip.family_members
     : [{
-        first_name: slip.first_name,
-        last_name: slip.last_name,
-        father_name: slip.father_name || '',
-        class_name: slip.class_name,
-        section_name: slip.section_name,
-        category: (slip as any).category,
-        is_trusted: (slip as any).is_trusted
-      }];
+      first_name: slip.first_name,
+      last_name: slip.last_name,
+      father_name: slip.father_name || '',
+      class_name: slip.class_name,
+      section_name: slip.section_name,
+      category: (slip as any).category,
+      is_trusted: (slip as any).is_trusted
+    }];
   const printableMembers = rawMembers.filter((m: any) => !isTrustedMember(m));
   const members: any[] = printableMembers;
 
@@ -950,7 +950,7 @@ function printDailyReceiptWindow(
     </tr>`;
 
   const phones = [school.contact_number || school.phone_number, school.school_phone2, school.school_phone3].filter(Boolean).join(' ; ') || '0300-7730141 ; 0308-7696430 ; 067-3366383';
-  const API_URL = (process.env.NEXT_PUBLIC_API_URL || "https://demo-school-soxa.onrender.com").replace(/\/+$/, '');
+  const API_URL = (process.env.NEXT_PUBLIC_API_URL || "https://sgmschool.onrender.com").replace(/\/+$/, '');
   let logoUrl = school.logo_url || school.school_logo_url || '';
   if (logoUrl) {
     if (!logoUrl.startsWith('data:') && !logoUrl.startsWith('http://') && !logoUrl.startsWith('https://')) {

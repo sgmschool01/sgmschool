@@ -68,7 +68,7 @@ export default function TeacherAssign() {
     const fetchAllData = async () => {
         setLoading(true);
         setError(null);
-        const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://demo-school-soxa.onrender.com";
+        const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://sgmschool.onrender.com";
 
         try {
             console.log("Fetching from:", API_URL);
@@ -186,7 +186,7 @@ export default function TeacherAssign() {
 
                 if (isSelected && !wasSelected) {
                     apiCalls.push(
-                        fetch(`${process.env.NEXT_PUBLIC_API_URL || "https://demo-school-soxa.onrender.com"}/academic/teachers/${employeeId}/subjects`, {
+                        fetch(`${process.env.NEXT_PUBLIC_API_URL || "https://sgmschool.onrender.com"}/academic/teachers/${employeeId}/subjects`, {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({ subject_id: subId })
@@ -196,7 +196,7 @@ export default function TeacherAssign() {
                     const assignId = initialSubjectMap[subId];
                     if (assignId) {
                         apiCalls.push(
-                            fetch(`${process.env.NEXT_PUBLIC_API_URL || "https://demo-school-soxa.onrender.com"}/academic/teachers/${employeeId}/subjects/${assignId}`, {
+                            fetch(`${process.env.NEXT_PUBLIC_API_URL || "https://sgmschool.onrender.com"}/academic/teachers/${employeeId}/subjects/${assignId}`, {
                                 method: 'DELETE'
                             })
                         );
@@ -218,7 +218,7 @@ export default function TeacherAssign() {
                 if (!sec) continue;
 
                 apiCalls.push(
-                    fetch(`${process.env.NEXT_PUBLIC_API_URL || "https://demo-school-soxa.onrender.com"}/academic/teachers/${employeeId}/classes`, {
+                    fetch(`${process.env.NEXT_PUBLIC_API_URL || "https://sgmschool.onrender.com"}/academic/teachers/${employeeId}/classes`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
@@ -235,7 +235,7 @@ export default function TeacherAssign() {
                     const secId = cls.section_id;
                     if (!activeSectionsMap.has(secId)) {
                         apiCalls.push(
-                            fetch(`${process.env.NEXT_PUBLIC_API_URL || "https://demo-school-soxa.onrender.com"}/academic/teachers/${employeeId}/classes/${cls.assignment_id}`, {
+                            fetch(`${process.env.NEXT_PUBLIC_API_URL || "https://sgmschool.onrender.com"}/academic/teachers/${employeeId}/classes/${cls.assignment_id}`, {
                                 method: 'DELETE'
                             })
                         );

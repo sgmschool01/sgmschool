@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { notify } from '@/app/utils/notify';
 
-const API = process.env.NEXT_PUBLIC_API_URL || "https://demo-school-soxa.onrender.com";
+const API = process.env.NEXT_PUBLIC_API_URL || "https://sgmschool.onrender.com";
 
 type Term = { id: number; term_name: string };
 type ClassItem = { class_id: number; class_name: string };
@@ -74,7 +74,7 @@ function getLogoUrl(rawLogo?: string): string {
     if (logoStr.startsWith('http://') || logoStr.startsWith('https://') || logoStr.startsWith('data:')) {
         return logoStr;
     }
-    const baseUrl = (process.env.NEXT_PUBLIC_API_URL || "https://demo-school-soxa.onrender.com").replace(/\/+$/, '');
+    const baseUrl = (process.env.NEXT_PUBLIC_API_URL || "https://sgmschool.onrender.com").replace(/\/+$/, '');
     const cleanPath = logoStr.replace(/^\/+/, '');
     return `${baseUrl}/${cleanPath}`;
 }

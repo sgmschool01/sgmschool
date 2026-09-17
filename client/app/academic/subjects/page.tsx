@@ -58,7 +58,7 @@ export default function SubjectSettings() {
     });
 
     const { hasPermission } = useAuth();
-    const API_BASE = process.env.NEXT_PUBLIC_API_URL || "https://demo-school-soxa.onrender.com";
+    const API_BASE = process.env.NEXT_PUBLIC_API_URL || "https://sgmschool.onrender.com";
 
     useEffect(() => {
         // Initialize Bootstrap JS for Accordions

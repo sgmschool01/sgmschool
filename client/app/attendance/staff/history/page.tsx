@@ -160,7 +160,7 @@ export default function StaffAttendanceHistoryPage() {
     const [filterDate, setFilterDate] = useState('');
     const [selectedEmployee, setSelectedEmployee] = useState<StaffHistory | null>(null);
 
-    const API = (process.env.NEXT_PUBLIC_API_URL || "https://demo-school-soxa.onrender.com").replace(/\/+$/, '').replace(/\/api$/, '');
+    const API = (process.env.NEXT_PUBLIC_API_URL || "https://sgmschool.onrender.com").replace(/\/+$/, '').replace(/\/api$/, '');
 
     const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 

@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'];
 const MONTH_SHORT = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
-const API = process.env.NEXT_PUBLIC_API_URL || "https://demo-school-soxa.onrender.com";
+const API = process.env.NEXT_PUBLIC_API_URL || "https://sgmschool.onrender.com";
 
 interface SlipData {
     slip_id: number; student_id: number; family_id: string; class_id: number;
@@ -109,7 +109,7 @@ function VoucherSlip({ v, serial, month, year, school, filterClassId, trustedStu
         const displayName = rawName.replace(/Family Monthly Fee/i, 'Monthly Fee');
         const isTuition = displayName.toLowerCase().includes('monthly fee') || displayName.toLowerCase().includes('tuition');
         const isPb = displayName.toLowerCase().includes('previous balance') || displayName.toLowerCase().includes('opening balance');
-        
+
         let desc = displayName;
         if (isPb) {
             desc = 'Previous Balance';
@@ -391,7 +391,7 @@ export default function PrintSlipsPage() {
                 }
             });
             setTrustedStudentIds(newSet);
-        }).catch(() => {});
+        }).catch(() => { });
         fetch(`${API}/academic`).then(r => r.json()).then(setClasses).catch(() => { });
         fetch(`${API}/academic/years`).then(r => r.json()).then(data => {
             if (Array.isArray(data)) {
@@ -402,7 +402,7 @@ export default function PrintSlipsPage() {
                     setSelectedAcademicYear(active.id.toString());
                 }
             }
-        }).catch(() => {});
+        }).catch(() => { });
         fetch(`${API}/academic/active-year`).then(r => r.json()).then(data => {
             if (data && data.id) {
                 setActiveYear(data);
@@ -412,7 +412,7 @@ export default function PrintSlipsPage() {
                     setYear(startY);
                 }
             }
-        }).catch(() => {});
+        }).catch(() => { });
 
         fetch(`${API}/settings`).then(r => r.json()).then((data: any) => {
             if (data && typeof data === 'object' && !Array.isArray(data)) {
@@ -486,7 +486,7 @@ export default function PrintSlipsPage() {
                     });
                     currentTIds = newSet;
                     setTrustedStudentIds(newSet);
-                } catch {}
+                } catch { }
             }
             const data = await r.json();
             if (!r.ok) throw new Error(data.error);
@@ -509,9 +509,9 @@ export default function PrintSlipsPage() {
                 }
 
                 if (v.voucher_type === 'family' && v.family_members && v.family_members.length > 0) {
-                    const payingSibling = v.family_members.find((m: any) => 
-                        !m.is_trusted && 
-                        (m.category || '').toLowerCase() !== 'trusted' && 
+                    const payingSibling = v.family_members.find((m: any) =>
+                        !m.is_trusted &&
+                        (m.category || '').toLowerCase() !== 'trusted' &&
                         !(currentTIds && currentTIds.has(Number(m.student_id))) &&
                         (m.status || 'Active').toLowerCase() === 'active'
                     );

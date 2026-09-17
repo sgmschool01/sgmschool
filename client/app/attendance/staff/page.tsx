@@ -86,7 +86,7 @@ export default function StaffAttendancePage() {
     const canEditLocked = isAdmin || hasPermission('attendance.edit_locked', 'write');
     const canMarkAdvance = isAdmin || hasPermission('attendance.mark_advance', 'write');
 
-    const API = (process.env.NEXT_PUBLIC_API_URL || "https://demo-school-soxa.onrender.com").replace(/\/+$/, '');
+    const API = (process.env.NEXT_PUBLIC_API_URL || "https://sgmschool.onrender.com").replace(/\/+$/, '');
 
     // Fetch initial metadata: departments & academic years
     useEffect(() => {

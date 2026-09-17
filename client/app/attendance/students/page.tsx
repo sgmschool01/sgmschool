@@ -54,7 +54,7 @@ export default function StudentAttendancePage() {
 
   useEffect(() => {
     const loadMeta = async () => {
-      const API = (process.env.NEXT_PUBLIC_API_URL || "https://demo-school-soxa.onrender.com").replace(/\/+$/, '');
+      const API = (process.env.NEXT_PUBLIC_API_URL || "https://sgmschool.onrender.com").replace(/\/+$/, '');
       if (!user?.id) return;
 
       try {
@@ -106,7 +106,7 @@ export default function StudentAttendancePage() {
     if (!classId || !sectionId || !date) return;
     setLoading(true);
     try {
-      const API = (process.env.NEXT_PUBLIC_API_URL || "https://demo-school-soxa.onrender.com").replace(/\/+$/, '');
+      const API = (process.env.NEXT_PUBLIC_API_URL || "https://sgmschool.onrender.com").replace(/\/+$/, '');
       const queryParams = new URLSearchParams({
         class_id: String(classId),
         section_id: String(sectionId),
@@ -154,7 +154,7 @@ export default function StudentAttendancePage() {
     if (isLocked || !classId || !sectionId || !date || !students.length) return;
     setSaving(true);
     try {
-      const API = (process.env.NEXT_PUBLIC_API_URL || "https://demo-school-soxa.onrender.com").replace(/\/+$/, '');
+      const API = (process.env.NEXT_PUBLIC_API_URL || "https://sgmschool.onrender.com").replace(/\/+$/, '');
       const records = students.map(s => ({
         student_id: s.student_id,
         status: statuses[s.student_id] || 'Present',

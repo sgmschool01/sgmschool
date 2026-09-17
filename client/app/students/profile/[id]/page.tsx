@@ -48,7 +48,7 @@ export default function StudentProfile({ params }: { params: { id: string } }) {
                 queryParams.append('month', 'all');
             }
 
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "https://demo-school-soxa.onrender.com"}/attendance/students/${params.id}/history?${queryParams.toString()}`);
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "https://sgmschool.onrender.com"}/attendance/students/${params.id}/history?${queryParams.toString()}`);
             if (res.ok) {
                 const data = await res.json();
                 setAttRecords(data.records || []);
@@ -71,7 +71,7 @@ export default function StudentProfile({ params }: { params: { id: string } }) {
     const fetchAcademics = async () => {
         setAcadLoading(true);
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "https://demo-school-soxa.onrender.com"}/exams/student-academics/${params.id}`);
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "https://sgmschool.onrender.com"}/exams/student-academics/${params.id}`);
             if (res.ok) { const data = await res.json(); setAcad(data); }
         } catch { }
         setAcadLoading(false);
@@ -98,7 +98,7 @@ export default function StudentProfile({ params }: { params: { id: string } }) {
 
     const fetchStudent = async () => {
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "https://demo-school-soxa.onrender.com"}/students/${params.id}`);
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "https://sgmschool.onrender.com"}/students/${params.id}`);
             if (res.ok) {
                 const data = await res.json();
                 setStudent(data.rows ? data.rows[0] : (Array.isArray(data) ? data[0] : data));
@@ -114,7 +114,7 @@ export default function StudentProfile({ params }: { params: { id: string } }) {
     const fetchSiblings = async () => {
         setLoadingSiblings(true);
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "https://demo-school-soxa.onrender.com"}/students/${params.id}/siblings`);
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "https://sgmschool.onrender.com"}/students/${params.id}/siblings`);
             if (res.ok) {
                 const data = await res.json();
                 setSiblings(data);
@@ -155,7 +155,7 @@ export default function StudentProfile({ params }: { params: { id: string } }) {
     const fetchFamilySlips = async () => {
         setLoadingFamilySlips(true);
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "https://demo-school-soxa.onrender.com"}/fee-slips/family-summary/${params.id}`);
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "https://sgmschool.onrender.com"}/fee-slips/family-summary/${params.id}`);
             const data = await res.json();
             if (res.ok) setFamilySlips(data.slips || []);
         } catch (e) {
@@ -167,7 +167,7 @@ export default function StudentProfile({ params }: { params: { id: string } }) {
     const fetchAdmissionFee = async () => {
         setLoadingFees(true);
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "https://demo-school-soxa.onrender.com"}/fee-slips/admission-fees/student/${params.id}`);
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "https://sgmschool.onrender.com"}/fee-slips/admission-fees/student/${params.id}`);
             if (res.ok) {
                 const data = await res.json();
                 setAdmissionFee(data.ledger);
@@ -182,7 +182,7 @@ export default function StudentProfile({ params }: { params: { id: string } }) {
         if (!admissionFee) return;
         setPayingFee(true); setPayError(''); setPaySuccess('');
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "https://demo-school-soxa.onrender.com"}/fee-slips/admission-fees/${admissionFee.ledger_id}/pay`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "https://sgmschool.onrender.com"}/fee-slips/admission-fees/${admissionFee.ledger_id}/pay`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ amount_paid: payAmt, payment_method: payMethod, reference_no: payRef, payment_date: payDate })
@@ -204,7 +204,7 @@ export default function StudentProfile({ params }: { params: { id: string } }) {
         if (!confirm(confirmMsg)) return;
         try {
             const newStatus = isDeactivating ? 'Inactive' : 'Active';
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "https://demo-school-soxa.onrender.com"}/students/${params.id}/status`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "https://sgmschool.onrender.com"}/students/${params.id}/status`, {
                 method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ status: newStatus })
@@ -228,7 +228,7 @@ export default function StudentProfile({ params }: { params: { id: string } }) {
     const handleGenerateCredentials = async () => {
         if (!confirm("Generate System Login Credentials for this student?")) return;
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "https://demo-school-soxa.onrender.com"}/students/${params.id}/generate-credentials`, { method: 'PATCH' });
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "https://sgmschool.onrender.com"}/students/${params.id}/generate-credentials`, { method: 'PATCH' });
             const data = await res.json();
             if (res.ok) {
                 notify.success(`Credentials Created! Username: ${data.username}`);
@@ -246,7 +246,7 @@ export default function StudentProfile({ params }: { params: { id: string } }) {
         }
         setIsChangingPwd(true);
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "https://demo-school-soxa.onrender.com"}/students/${params.id}/change-password`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "https://sgmschool.onrender.com"}/students/${params.id}/change-password`, {
                 method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ password: newAdminPwd })
@@ -388,7 +388,7 @@ export default function StudentProfile({ params }: { params: { id: string } }) {
                         {/* Avatar */}
                         <div className="position-relative flex-shrink-0">
                             <img
-                                src={student.image_url ? `${process.env.NEXT_PUBLIC_API_URL || "https://demo-school-soxa.onrender.com"}/${student.image_url}` : "https://ui-avatars.com/api/?name=" + encodeURIComponent(student.first_name || 'Student') + "&background=195053&color=fff&size=150"}
+                                src={student.image_url ? `${process.env.NEXT_PUBLIC_API_URL || "https://sgmschool.onrender.com"}/${student.image_url}` : "https://ui-avatars.com/api/?name=" + encodeURIComponent(student.first_name || 'Student') + "&background=195053&color=fff&size=150"}
                                 className="rounded-circle border border-4 border-white shadow-lg bg-white"
                                 style={{ width: '110px', height: '110px', objectFit: 'cover' }}
                                 alt={student.first_name}
@@ -411,11 +411,10 @@ export default function StudentProfile({ params }: { params: { id: string } }) {
                                     {student.admission_no}
                                 </span>
                                 <span
-                                    className={`badge px-3 py-1.5 rounded-pill fw-bold shadow-sm ${
-                                        (student.status || 'Active') === 'Active'
+                                    className={`badge px-3 py-1.5 rounded-pill fw-bold shadow-sm ${(student.status || 'Active') === 'Active'
                                             ? 'bg-success text-white'
                                             : 'bg-danger text-white'
-                                    }`}
+                                        }`}
                                     style={{ fontSize: '0.82rem', letterSpacing: '0.3px' }}
                                 >
                                     <i className={`bi bi-${(student.status || 'Active') === 'Active' ? 'check-circle-fill' : 'slash-circle-fill'} me-1.5`}></i>
@@ -535,11 +534,10 @@ export default function StudentProfile({ params }: { params: { id: string } }) {
                                             <div className="mt-2">
                                                 <button
                                                     onClick={handleToggleStatus}
-                                                    className={`btn w-100 py-2.5 rounded-3 fw-bold shadow-sm d-flex align-items-center justify-content-center gap-2 ${
-                                                        student.status === 'Active'
+                                                    className={`btn w-100 py-2.5 rounded-3 fw-bold shadow-sm d-flex align-items-center justify-content-center gap-2 ${student.status === 'Active'
                                                             ? 'btn-outline-danger'
                                                             : 'btn-outline-success'
-                                                    }`}
+                                                        }`}
                                                     style={{
                                                         fontSize: '0.85rem',
                                                         letterSpacing: '0.3px',
@@ -1163,7 +1161,7 @@ export default function StudentProfile({ params }: { params: { id: string } }) {
                                                                                     <div className="me-3">
                                                                                         {sibling.image_url ? (
                                                                                             <img
-                                                                                                src={`${process.env.NEXT_PUBLIC_API_URL || "https://demo-school-soxa.onrender.com"}/${sibling.image_url}`}
+                                                                                                src={`${process.env.NEXT_PUBLIC_API_URL || "https://sgmschool.onrender.com"}/${sibling.image_url}`}
                                                                                                 alt={sibling.first_name}
                                                                                                 className="rounded-circle border border-2"
                                                                                                 style={{
@@ -1240,8 +1238,8 @@ export default function StudentProfile({ params }: { params: { id: string } }) {
                                                     </div>
                                                     <div className="card-body py-4 px-3 d-flex flex-column justify-content-center align-items-center">
                                                         <div className="fw-bold text-break" style={{ fontSize: 'calc(1.3rem + 0.6vw)', color: 'var(--primary-teal)', lineHeight: 1.2 }}>
-                                                            {(student.family_size || 1) > 1 
-                                                                ? fmt(student.family_fee || student.monthly_fee || 0) 
+                                                            {(student.family_size || 1) > 1
+                                                                ? fmt(student.family_fee || student.monthly_fee || 0)
                                                                 : fmt(Number(student?.monthly_fee || 0) > 0 ? student.monthly_fee : (student?.family_fee || 0))}
                                                         </div>
                                                         {(student.family_size || 1) > 1 ? (
@@ -1851,7 +1849,7 @@ export default function StudentProfile({ params }: { params: { id: string } }) {
                                                         <div className="card-body text-center p-4">
                                                             <i className="bi bi-file-earmark-pdf fs-1 text-danger mb-3"></i>
                                                             <h6 className="text-truncate">Document {i + 1}</h6>
-                                                            <a href={`${process.env.NEXT_PUBLIC_API_URL || "https://demo-school-soxa.onrender.com"}/${doc}`} target="_blank" className="btn btn-sm btn-outline-primary mt-2">View</a>
+                                                            <a href={`${process.env.NEXT_PUBLIC_API_URL || "https://sgmschool.onrender.com"}/${doc}`} target="_blank" className="btn btn-sm btn-outline-primary mt-2">View</a>
                                                         </div>
                                                     </div>
                                                 </div>

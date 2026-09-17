@@ -28,8 +28,8 @@ A commercial, production-ready, enterprise-grade **School Management ERP & Nativ
 
 | Environment | Platform | URL / Endpoint | Details |
 | :--- | :--- | :--- | :--- |
-| **Frontend Web App** | **Render / Vercel** | [https://demo-school-soxa.onrender.com](https://demo-school-soxa.onrender.com) | Next.js 14 Client Web Portal |
-| **Backend REST API** | **Render Cloud** | [https://demo-school-soxa.onrender.com](https://demo-school-soxa.onrender.com) | Node.js / Express Server API |
+| **Frontend Web App** | **Render / Vercel** | [https://sgmschool.onrender.com](https://sgmschool.onrender.com) | Next.js 14 Client Web Portal |
+| **Backend REST API** | **Render Cloud** | [https://sgmschool.onrender.com](https://sgmschool.onrender.com) | Node.js / Express Server API |
 | **Database Cluster** | **Supabase / PostgreSQL** | Managed Cloud Database | PostgreSQL Relational Engine |
 | **Native Mobile App** | **Android / iOS** | Capacitor Cross-Platform | Native Launcher Icons & APK Build Ready |
 
@@ -168,7 +168,7 @@ Double-click `RUN_APP.bat` to launch the interactive control launcher:
 3. Set **Framework Preset**: Next.js
 4. Set **Build Command**: `npm run build`
 5. Configure Environment Variables:
-   - `NEXT_PUBLIC_API_URL`: Your deployed backend URL (e.g. `https://demo-school-soxa.onrender.com`)
+   - `NEXT_PUBLIC_API_URL`: Your deployed backend URL (e.g. `https://sgmschool.onrender.com`)
 
 ---
 
